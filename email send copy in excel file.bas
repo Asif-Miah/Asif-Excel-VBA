@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+
 Sub MergeMacros()
     ' Step 1: List Sent Emails to Separate Sheets By Recipient
     Call ListSentEmailsToSeparateSheetsByRecipient
@@ -284,6 +284,7 @@ Sub ScanFoldersForUnread(Folders As Object, ws As Worksheet, ByRef row As Long)
         End If
     Next Folder
 End Sub
+
 
 
 
