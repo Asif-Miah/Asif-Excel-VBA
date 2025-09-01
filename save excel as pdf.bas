@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+
 Sub SaveFullPageAsPDF_AutoFit()
     Dim ws As Worksheet
     Dim FilePath As String
@@ -33,5 +33,6 @@ Sub SaveFullPageAsPDF_AutoFit()
     
     MsgBox "Saved full page as PDF: " & FilePath, vbInformation
 End Sub
+
 
 
