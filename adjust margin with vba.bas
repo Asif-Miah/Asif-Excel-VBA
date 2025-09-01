@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+
 Sub SetMarginsForSelection()
     Dim ws As Worksheet
     Set ws = ActiveSheet
@@ -18,4 +18,5 @@ Sub SetMarginsForSelection()
     
     MsgBox "Margins set to 0.1 inch for the selection.", vbInformation
 End Sub
+
 
