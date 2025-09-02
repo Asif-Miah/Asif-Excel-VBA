@@ -1,0 +1,57 @@
+# 📂 Excel VBA – List Files & Folders
+
+This VBA macro allows you to **list all files and folders** (including subfolders) from a selected folder or drive directly into Excel.  
+It creates a clean, formatted table with useful details.
+
+---
+
+## ✨ Features
+- 🔍 Choose any **folder or drive** (e.g., `C:\`, `D:\Projects`).
+- 📁 Lists **all folders, subfolders, and files** recursively.
+- 📝 Columns included:
+  - **Type** → Folder / File
+  - **Name** → File or folder name
+  - **Full Path** → Complete location
+  - **Extension** → File extension (blank for folders)
+- 🎨 Automatic **table formatting**:
+  - Light blue header
+  - Borders & autofit
+  - Zebra striping for readability
+  - Folders highlighted (bold + background color)
+
+---
+
+## 🚀 How to Use
+1. Open Excel and press `ALT + F11` to open the VBA editor.
+2. Insert a new module and paste the provided code.
+3. Run the macro **`ListAllFilesAndFolders`**.
+4. Select a folder (or drive) from the dialog.
+5. Excel will generate the full structured list.
+
+---
+
+## 📊 Example Output
+
+| Type   | Name        | Full Path                      | Extension |
+|--------|-------------|--------------------------------|-----------|
+| Folder | Documents   | C:\Users\User\Documents        |           |
+| File   | Report.xlsx | C:\Users\User\Documents\Report.xlsx | xlsx      |
+| File   | Notes.txt   | C:\Users\User\Documents\Notes.txt   | txt       |
+
+---
+
+## 🔧 Requirements
+- Excel with VBA enabled (Windows recommended).
+- No external libraries required (uses built-in `Scripting.FileSystemObject`).
+
+---
+
+## 💡 Notes
+- Works with **nested subfolders** automatically.
+- If a **drive root** is chosen, the entire drive is scanned.
+- Can be extended to include **file size, date modified**, or **sorting**.
+
+---
+
+## 📜 License
+Free to use and modify. 🚀
