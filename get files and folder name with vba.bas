@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+
 Option Explicit
 
 Sub ListAllFilesAndFolders()
@@ -82,5 +82,6 @@ Private Sub RecursiveList(ByVal folderPath As String, ByRef ws As Worksheet, ByR
         Call RecursiveList(subFolder.Path, ws, rowNum)
     Next subFolder
 End Sub
+
 
 
