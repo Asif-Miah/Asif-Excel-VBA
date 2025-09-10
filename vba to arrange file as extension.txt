@@ -1,0 +1,61 @@
+Sub OrganizeFilesByExtensionDynamic()
+    Dim fldr As FileDialog
+    Dim folderPath As String
+    Dim fso As Object
+    
+    ' Select folder
+    Set fldr = Application.FileDialog(msoFileDialogFolderPicker)
+    With fldr
+        .Title = "Select Folder to Organize"
+        .AllowMultiSelect = False
+        If .Show <> -1 Then Exit Sub
+        folderPath = .SelectedItems(1)
+    End With
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    
+    ' Call recursive subroutine
+    Call OrganizeFolder(folderPath, fso)
+    
+    MsgBox "All files have been organized dynamically by extension!", vbInformation
+End Sub
+
+Sub OrganizeFolder(ByVal folderPath As String, ByVal fso As Object)
+    Dim file As Object
+    Dim subFolder As Object
+    Dim ext As String
+    Dim newFolder As String
+    
+    ' Loop through files in current folder
+    For Each file In fso.GetFolder(folderPath).Files
+        ext = fso.GetExtensionName(file.Name)
+        If ext = "" Then ext = "No_Extension"
+        newFolder = folderPath & "\" & ext
+        If Not fso.FolderExists(newFolder) Then
+            fso.CreateFolder newFolder
+        End If
+        On Error Resume Next ' Skip if file is in use
+        file.Move newFolder & "\" & file.Name
+        On Error GoTo 0
+    Next file
+    
+    ' Loop through subfolders
+    For Each subFolder In fso.GetFolder(folderPath).SubFolders
+        ' Avoid moving the extension folders we just created
+        If fso.GetParentFolderName(subFolder.Path) = folderPath Then
+            If Not IsExtensionFolder(subFolder.Name) Then
+                OrganizeFolder subFolder.Path, fso
+            End If
+        End If
+    Next subFolder
+End Sub
+
+Function IsExtensionFolder(folderName As String) As Boolean
+    ' Simple check: folder name without dot = extension folder
+    ' You can improve this mapping if needed
+    If InStr(folderName, ".") = 0 Then
+        IsExtensionFolder = True
+    Else
+        IsExtensionFolder = False
+    End If
+End Function
