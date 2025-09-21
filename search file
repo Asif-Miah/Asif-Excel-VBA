@@ -1,0 +1,105 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim folderPath As String
+    Dim fileName As String
+    Dim rowNum As Long
+    Dim searchString As String
+    Dim startPos As Long
+    Dim fileExt As String
+    Dim lastRow As Long
+    
+    ' Only trigger if A1 changes
+    If Not Intersect(Target, Me.Range("A1")) Is Nothing Then
+        
+        Application.EnableEvents = False
+        Application.ScreenUpdating = False
+        
+        ' Clear previous table (starting from A3, columns A:C)
+        Me.Range("A3:C1000").Clear
+        Me.Range("A3:C1000").Interior.ColorIndex = xlNone
+        
+        ' Add headers with bold and color
+        With Me.Range("A3:C3")
+            .Value = Array("File Name", "File Type", "Open Link")
+            .Font.Bold = True
+            .Font.Color = RGB(255, 255, 255) ' white font
+            .Interior.Color = RGB(34, 139, 34) ' green header
+            .HorizontalAlignment = xlCenter
+        End With
+        
+        ' Folder containing files
+        folderPath = "E:\powerkp\"
+        
+        ' Get search string from A1
+        searchString = Me.Range("A1").Value
+        
+        ' Start writing from row 4
+        rowNum = 4
+        
+        ' Get first file
+        fileName = Dir(folderPath & "*.*")
+        
+        ' Loop through all files
+        Do While fileName <> ""
+            ' Show all files if search string is blank
+            ' Otherwise, filter by search string
+            If searchString = "" Or InStr(1, fileName, searchString, vbTextCompare) > 0 Then
+                
+                ' Column A – file name
+                Me.Cells(rowNum, 1).Value = fileName
+                
+                ' Extract file extension for Column B
+                fileExt = Mid(fileName, InStrRev(fileName, ".") + 1)
+                Me.Cells(rowNum, 2).Value = UCase(fileExt) ' uppercase
+                
+                ' Highlight matching part in Column A
+                If searchString <> "" Then
+                    startPos = InStr(1, fileName, searchString, vbTextCompare)
+                    If startPos > 0 Then
+                        With Me.Cells(rowNum, 1).Characters(Start:=startPos, Length:=Len(searchString)).Font
+                            .Color = RGB(255, 0, 0)
+                            .Bold = True
+                        End With
+                    End If
+                End If
+                
+                ' Column C – clickable hyperlink
+                Me.Hyperlinks.Add _
+                    Anchor:=Me.Cells(rowNum, 3), _
+                    Address:=folderPath & fileName, _
+                    TextToDisplay:="Open File"
+                
+                ' Alternate row coloring (green-white)
+                If rowNum Mod 2 = 0 Then
+                    Me.Range("A" & rowNum & ":C" & rowNum).Interior.Color = RGB(240, 255, 240) ' light green
+                Else
+                    Me.Range("A" & rowNum & ":C" & rowNum).Interior.Color = RGB(255, 255, 255) ' white
+                End If
+                
+                ' Apply borders
+                With Me.Range("A" & rowNum & ":C" & rowNum).Borders
+                    .LineStyle = xlContinuous
+                    .Weight = xlThin
+                    .Color = RGB(0, 128, 0) ' dark green border
+                End With
+                
+                rowNum = rowNum + 1
+            End If
+            
+            ' Next file
+            fileName = Dir
+        Loop
+        
+        ' Apply borders to header row
+        With Me.Range("A3:C3").Borders
+            .LineStyle = xlContinuous
+            .Weight = xlMedium
+            .Color = RGB(0, 100, 0)
+        End With
+        
+        ' Auto-fit columns
+        Me.Columns("A:C").AutoFit
+        
+        Application.EnableEvents = True
+        Application.ScreenUpdating = True
+    End If
+End Sub
