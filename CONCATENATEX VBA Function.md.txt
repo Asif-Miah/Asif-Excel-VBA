@@ -1,0 +1,25 @@
+# CONCATENATEX VBA Function
+
+## 📘 Overview
+`CONCATENATEX` is a custom VBA function for Excel that concatenates (joins) all non-empty cell values from a given range into a single text string, separated by a specified delimiter.  
+It works similarly to Excel’s `TEXTJOIN` function, but can be used even in older Excel versions that do not support `TEXTJOIN`.
+
+---
+
+## ⚙️ Function Code
+
+```vba
+Function CONCATENATEX(rng As Range, Optional delimiter As String = ", ") As String
+    Dim cell As Range
+    Dim result As String
+    
+    For Each cell In rng
+        If Trim(cell.Value) <> "" Then
+            result = result & cell.Value & delimiter
+        End If
+    Next cell
+    
+    If Len(result) > 0 Then result = Left(result, Len(result) - Len(delimiter))
+    
+    CONCATENATEX = result
+End Function
