@@ -1,0 +1,39 @@
+# RepeatValues Excel VBA Function
+
+## Overview
+`RepeatValues` is a custom Excel VBA function that allows you to **repeat a value multiple times**, similar to the Power Query M code `repeat` function. This is useful when you want to expand rows based on a count column directly in Excel.
+
+---
+
+## Features
+- Repeat a single value `n` times.
+- Works for numbers, text, or mixed values.
+- Returns a vertical array that can **spill** in Excel 365/2021.
+
+---
+
+## Installation
+
+1. Open your Excel workbook.
+2. Press `Alt + F11` to open the VBA editor.
+3. Go to **Insert → Module**.
+4. Paste the following code:
+
+```vba
+Function RepeatValues(Value As Variant, Count As Long) As Variant
+    Dim result() As Variant
+    Dim i As Long
+    
+    If Count <= 0 Then
+        RepeatValues = Array()
+        Exit Function
+    End If
+    
+    ReDim result(1 To Count, 1 To 1)
+    
+    For i = 1 To Count
+        result(i, 1) = Value
+    Next i
+    
+    RepeatValues = result
+End Function
