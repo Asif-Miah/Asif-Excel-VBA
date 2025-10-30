@@ -1,0 +1,55 @@
+# Classic Pivot Table Macro for Excel
+
+This Excel VBA macro automates the creation of a **classic-style pivot table** with enhanced formatting and options. It is designed to work with a selected data range on the active worksheet.
+
+---
+
+## Features
+
+1. **Classic Pivot Table Layout**
+   - Tabular row layout (`xlTabularRow`)
+   - No drill indicators
+   - No automatic formatting
+   - Column and row grand totals disabled
+
+2. **No Subtotals**
+   - All row fields have subtotals disabled automatically
+
+3. **Automatic Date Filter**
+   - The first column detected as a date is added as a **page filter**
+
+4. **Values and Row Fields**
+   - Numeric columns are added as **Sum values**
+   - Text columns are added as **row fields**
+
+5. **Merge and Center Row Labels**
+   - Automatically merges repeated row labels for a clean appearance
+   - Equivalent to the "Merge and Center Cells with Labels" option in PivotTable settings
+
+6. **Borders**
+   - Applies thin borders to the **entire pivot table** including headers, values, and totals
+
+7. **Custom Title Row**
+   - Adds a **merged and centered title** above the pivot table
+   - Bold and larger font for professional look
+   - Title text can be customized (`titleText` variable in code)
+
+---
+
+## How to Use
+
+1. Open your Excel workbook containing the dataset.
+2. Select the **data range including headers**.
+3. Press `Alt + F11` to open the VBA editor.
+4. Insert a new module and paste the macro code.
+5. Run the macro `CreateClassicPivotTable_NoSubtotal_DateFilter`.
+6. A new sheet named `PivotTable_Report` will be created with the pivot table.
+
+---
+
+## Customization
+
+- **Title Text**  
+  Change the text of the pivot table title by modifying the line:  
+  ```vba
+  titleText = "Sales Pivot Report"
