@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+
 Function RepeatValues(Value As Variant, Count As Long) As Variant
     Dim result() As Variant
     Dim i As Long
@@ -16,4 +16,5 @@ Function RepeatValues(Value As Variant, Count As Long) As Variant
     
     RepeatValues = result
 End Function
+
 
