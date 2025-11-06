@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module2"
+
 Function CONCATENATEX(rng As Range, Optional delimiter As String = ", ") As String
     Dim cell As Range
     Dim result As String
@@ -14,4 +14,5 @@ Function CONCATENATEX(rng As Range, Optional delimiter As String = ", ") As Stri
     
     CONCATENATEX = result
 End Function
+
 
