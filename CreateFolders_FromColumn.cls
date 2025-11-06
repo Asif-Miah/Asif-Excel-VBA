@@ -1,9 +1,5 @@
 
-Attribute VB_Name = "Sheet1"
-Attribute VB_GlobalNameSpace = False
-Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = True
-Attribute VB_Exposed = True
+
 Sub CreateFoldersFromColumn()
     Dim ws As Worksheet
     Dim folderPath As String
@@ -40,5 +36,6 @@ Sub CreateFoldersFromColumn()
     
     MsgBox "Folders created successfully in:" & vbCrLf & folderPath, vbInformation
 End Sub
+
 
 
